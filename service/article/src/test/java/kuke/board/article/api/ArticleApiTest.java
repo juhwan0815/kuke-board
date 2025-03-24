@@ -56,7 +56,7 @@ public class ArticleApiTest {
             System.out.println("articleId = " + article.getArticleId());
         }
     }
-    
+
     @Test
     void readAllInfiniteScrollTest() {
         List<ArticleResponse> articles1 = restClient.get()
@@ -81,6 +81,29 @@ public class ArticleApiTest {
         for (ArticleResponse articleResponse : articles2) {
             System.out.println("articleResponse.getArticleId() = " + articleResponse.getArticleId());
         }
+    }
+
+    @Test
+    void countTest() {
+        ArticleResponse response = create(new ArticleCreateRequest("hi", "contest", 1L, 2L));
+
+        Long count1 = restClient.get()
+                .uri("/v1/articles/boards/{boardId}/count", 2L)
+                .retrieve()
+                .body(Long.class);
+
+        System.out.println("count1 = " + count1);
+
+        restClient.delete()
+                .uri("/v1/articles/{articleId}", response.getArticleId())
+                .retrieve();
+
+        Long count2 = restClient.get()
+                .uri("/v1/articles/boards/{boardId}/count", 2L)
+                .retrieve()
+                .body(Long.class);
+
+        System.out.println("count2 = " + count2);
     }
 
 
