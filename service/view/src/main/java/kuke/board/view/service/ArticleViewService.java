@@ -15,6 +15,8 @@ public class ArticleViewService {
     private final ArticleViewCountBackupProcessor articleViewCountBackUpProcessor;
     private final ArticleViewDistributedLockRepository articleViewDistributedLockRepository;
 
+
+
     private static final int BACK_UP_BACH_SIZE = 100;
     private static final Duration TTL = Duration.ofMinutes(10);
 
